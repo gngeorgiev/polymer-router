@@ -13,10 +13,15 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage http://gngeorgiev.github.io/polymer-router
 -->
-<polymer-element name="polymer-router" attributes="routes lazy">
+<polymer-element name="polymer-router" attributes="routes">
   <template>
     <template repeat="{{route in routes}}">
-      <polymer-route element-name="{{route.element}}" path="{{route.path}}" lazy="{{lazy}}"></polymer-route>
+      <polymer-route element-name="{{route.element}}" path="{{route.path}}"
+                     lazy="{{route.lazy}}"
+                     reloadView="{{route.reloadView}}"
+                     default="{{route.path === '*'}}"
+                     redirect="{{route.redirect}}"
+      ></polymer-route>
     </template>
   </template>
 

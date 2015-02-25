@@ -6,38 +6,42 @@
     Polymer({
         routes: [],
         routeElements: [],
+        defaultRouteElement: null,
         onHashChange: function () {
             this.go(location.hash);
         },
         go: function (hash, options) {
-            history.pushState(null, null, hash);
             var route = this.findRoute(hash);
             if (route) {
-                this.activateRoute(route, options);
+              history.pushState(null, null, hash);
+              this.activateRoute(route, options);
             }
         },
         findRoute: function (hash) {
             var foundRoute = null;
-            for (var i = 0; i < this.routeElements.length; i++) {
-                var routeElement = this.routeElements[i];
-                var routeMatch = routeElement._matcher.parse(hash);
-                if (routeMatch) {
-                    foundRoute = routeElement;
-                    routeElement.params = routeMatch;
+            [].forEach.call(this.routeElements, function (routeElement) {
+                routeElement.hide();
+                if (routeElement.default || foundRoute) {
+                      return;
                 }
 
-                routeElement.hide();
-            }
+                var matcher = routeMatcher(routeElement.path);
+                var routeMatch = matcher.parse(hash);
+                if (routeMatch) {
+                  foundRoute = routeElement;
+                  routeElement.params = routeMatch;
+                }
+            });
 
-            return foundRoute;
+            return foundRoute || this.findRoute(this.defaultRouteElement.redirect);
         },
         activateRoute: function (route, options) {
             route.activate(options);
         },
         initRoutes: function () {
             this.routeElements = this.shadowRoot.getElementsByTagName(polymerRoute);
-            [].forEach.call(this.routeElements, function (routeElement) {
-                routeElement._matcher = routeMatcher(routeElement.path);
+            this.defaultRouteElement = _.find(this.routeElements, function (route) {
+              return !!route.default;
             });
         },
         attached: function () {
