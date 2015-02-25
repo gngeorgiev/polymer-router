@@ -9,12 +9,18 @@
       routes: [],
       routeElements: [],
       defaultRouteElement: null,
-      currentRoute: null
+      currentRoute: null,
+      loaded: false,
+      queuedHash: ''
     },
     onHashChange: function () {
       this.go(location.hash);
     },
     go: function (hash, options) {
+      if (!this.loaded) {
+        return this.queuedHash = hash;
+      }
+
       hash = this.normalizeHash(hash);
       var route = this.findRoute(hash);
       if (route) {
@@ -33,7 +39,7 @@
     },
     findRoute: function (hash) {
       var foundRoute = null;
-      [].forEach.call(this.routeElements, function (routeElement) {
+      [].forEach.call(this.getRouteElements(), function (routeElement) {
         routeElement.hide();
         if (routeElement.default || foundRoute) {
           return;
@@ -48,25 +54,30 @@
         }
       }.bind(this));
 
-      return foundRoute || this.findRoute(this.defaultRouteElement.redirect);
+      return foundRoute || this.findRoute(this.normalizeHash(this.getDefaultRouteElement().redirect));
+    },
+    getRouteElements: function () {
+      return this.shadowRoot ? this.shadowRoot.querySelectorAll(polymerRoute) : [];
+    },
+    getDefaultRouteElement: function () {
+      return _.find(this.routeElements, function (route) {
+        return !!route.default;
+      });
     },
     activateRoute: function (route, options) {
       route.activate(options);
       this.currentRoute = route;
     },
-    initRoutes: function () {
-      this.routeElements = this.shadowRoot.getElementsByTagName(polymerRoute);
-      this.defaultRouteElement = _.find(this.routeElements, function (route) {
-        return !!route.default;
-      });
-    },
     attached: function () {
       this.onHashChange = this.onHashChange.bind(this);
       window.addEventListener(hashstate, this.onHashChange);
 
-      var loadHandler = function loadHandler() {
-        this.initRoutes();
-        this.go(location.hash);
+      var loadHandler = function loadHandler () {
+        this.loaded = true;
+        if (this.queuedHash) {
+          this.go(this.queuedHash);
+        }
+
         window.removeEventListener(load, loadHandler);
       }.bind(this);
 
