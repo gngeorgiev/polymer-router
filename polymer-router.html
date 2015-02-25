@@ -1,0 +1,31 @@
+<link rel="import" href="../polymer/polymer.html">
+<script src="./bower_components/javascript-route-matcher/dist/ba-routematcher.js"></script>
+
+<!--
+Element providing solution to no problem in particular.
+
+##### Example
+
+    <polymer-router></polymer-router>
+
+@element polymer-router
+@blurb Element providing solution to no problem in particular.
+@status alpha
+@homepage http://gngeorgiev.github.io/polymer-router
+-->
+<polymer-element name="polymer-router" attributes="routes lazy">
+  <template>
+    <template repeat="{{route in routes}}">
+      <polymer-route element-name="{{route.element}}" path="{{route.path}}" lazy="{{lazy}}"></polymer-route>
+    </template>
+  </template>
+
+  <script src="polymer-router.js"></script>
+</polymer-element>
+
+<polymer-element name="polymer-route" attributes="element-name path lazy" hidden>
+  <template>
+  </template>
+
+  <script src="polymer-route.js"></script>
+</polymer-element>
