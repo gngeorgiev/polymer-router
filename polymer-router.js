@@ -4,9 +4,12 @@
     var polymerRoute = 'polymer-route';
 
     Polymer({
-        routes: [],
-        routeElements: [],
-        defaultRouteElement: null,
+        publish: {
+          routes: [],
+          routeElements: [],
+          defaultRouteElement: null,
+          currentRoute: null
+        },
         onHashChange: function () {
             this.go(location.hash);
         },
@@ -37,6 +40,7 @@
         },
         activateRoute: function (route, options) {
             route.activate(options);
+            this.currentRoute = route;
         },
         initRoutes: function () {
             this.routeElements = this.shadowRoot.getElementsByTagName(polymerRoute);
