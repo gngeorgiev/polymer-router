@@ -16,7 +16,8 @@ Element providing solution to no problem in particular.
 <polymer-element name="polymer-router" attributes="routes">
   <template>
     <template repeat="{{route in routes}}">
-      <polymer-route element-name="{{route.element}}" path="{{route.path}}"
+      <polymer-route element-name="{{route.element}}"
+                     path="{{route.path}}"
                      lazy="{{route.lazy}}"
                      reloadView="{{route.reloadView}}"
                      default="{{route.path === '*'}}"
@@ -28,8 +29,13 @@ Element providing solution to no problem in particular.
   <script src="polymer-router.js"></script>
 </polymer-element>
 
-<polymer-element name="polymer-route" attributes="element-name path lazy" hidden>
+<polymer-element name="polymer-route" attributes="element-name path lazy reloadView default redirect" hidden>
   <template>
+    <style>
+      :host > *{
+        height: 100%;
+      }
+    </style>
   </template>
 
   <script src="polymer-route.js"></script>
