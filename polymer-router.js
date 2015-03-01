@@ -7,11 +7,14 @@
   Polymer({
     publish: {
       routes: [],
-      routeElements: [],
       defaultRouteElement: null,
       currentRoute: null,
       loaded: false,
       queuedHash: ''
+    },
+    routesChanged: function () {
+      this.routes.forEach(function (route) {
+      })
     },
     onHashChange: function () {
       this.go(location.hash);
@@ -60,13 +63,18 @@
       return this.shadowRoot ? this.shadowRoot.querySelectorAll(polymerRoute) : [];
     },
     getDefaultRouteElement: function () {
-      return _.find(this.routeElements, function (route) {
+      return _.find(this.getRouteElements(), function (route) {
         return !!route.default;
-      });
+      }.bind(this));
     },
     activateRoute: function (route, options) {
       route.activate(options);
+      route.metadata = _.find(this.routes, {path: route.path});
       this.currentRoute = route;
+      this.fire('route-changed', {
+        route: route,
+        options: options
+      });
     },
     attached: function () {
       this.onHashChange = this.onHashChange.bind(this);
