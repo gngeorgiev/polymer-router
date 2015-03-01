@@ -13,7 +13,7 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage http://gngeorgiev.github.io/polymer-router
 -->
-<polymer-element name="polymer-router" attributes="routes">
+<polymer-element name="polymer-router" attributes="routes defaultRouteElement currentRoute">
   <template>
     <template repeat="{{route in routes}}">
       <polymer-route element-name="{{route.element}}"
