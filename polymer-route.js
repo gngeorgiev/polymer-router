@@ -22,7 +22,7 @@
       this.loaded = true;
     },
     detachView: function () {
-      if (this.view && this.reloadView && [].indexOf.apply(this.shadowRoot.children, this.view) !== -1) {
+      if (this.view && this.reloadView && [].indexOf.call(this.shadowRoot.children, this.view) !== -1) {
         this.shadowRoot.removeChild(this.view);
       }
     },
