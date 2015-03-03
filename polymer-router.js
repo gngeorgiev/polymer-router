@@ -68,6 +68,7 @@
       }.bind(this));
     },
     activateRoute: function (route, options) {
+      this.currentRoute && this.currentRoute.detachView();
       route.activate(options);
       route.metadata = _.find(this.routes, {path: route.path});
       this.currentRoute = route;

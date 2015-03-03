@@ -15,16 +15,19 @@
       }
     },
     loadView: function (options) {
-      if (this.view) {
-        this.shadowRoot.removeChild(this.view);
-      }
-
+      this.detachView();
       this.view = document.createElement(this.elementName);
       this.setViewParams(options);
       this.shadowRoot.appendChild(this.view);
       this.loaded = true;
     },
+    detachView: function () {
+      if (this.view && this.reloadView && [].indexOf.apply(this.shadowRoot.children, this.view) !== -1) {
+        this.shadowRoot.removeChild(this.view);
+      }
+    },
     activate: function (options) {
+      options = options || {};
       if (this.lazy && (!this.loaded || this.reloadView || options.reload)) {
         this.loadView(options);
       } else {
