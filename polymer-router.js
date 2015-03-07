@@ -1,5 +1,6 @@
 (function () {
   var hashstate = 'hashchange';
+  var popstate = 'popstate';
   var load = 'load';
   var polymerRoute = 'polymer-route';
   var hashSign = '#';
@@ -10,16 +11,30 @@
       defaultRouteElement: null,
       currentRoute: null,
       loaded: false,
-      queuedHash: ''
+      queuedHash: '',
+      _goingBack: false
     },
     routesChanged: function () {
       this.routes.forEach(function (route) {
       })
     },
-    onHashChange: function () {
-      this.go(location.hash);
+    onHashChange: function (ev) {
+      if (this._goingBack) {
+        this._goingBack = false;
+        return;
+      }
+
+      var options = {};
+      if (ev.type === popstate) {
+        options.back = true;
+        this._goingBack = true;
+      }
+
+      this.go(location.hash, options);
     },
     go: function (hash, options) {
+      options = options || {};
+      hash = typeof hash === 'string' ? hash : hash.path;
       if (!this.loaded) {
         return this.queuedHash = hash;
       }
@@ -27,7 +42,10 @@
       hash = this.normalizeHash(hash);
       var route = this.findRoute(hash);
       if (route) {
-        history.pushState(null, null, hash);
+        if (!options.back) {
+          history.pushState(options.state, null, hash);
+        }
+
         this.activateRoute(route, options);
       }
     },
@@ -80,6 +98,7 @@
     attached: function () {
       this.onHashChange = this.onHashChange.bind(this);
       window.addEventListener(hashstate, this.onHashChange);
+      window.addEventListener(popstate, this.onHashChange);
 
       var loadHandler = function loadHandler () {
         this.loaded = true;

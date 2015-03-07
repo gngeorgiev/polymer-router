@@ -31,16 +31,15 @@
       if (this.lazy && (!this.loaded || this.reloadView || options.reload)) {
         this.loadView(options);
       } else {
-        this.setViewParams(options);
+        this.setViewParams();
       }
 
       this.hidden = false;
     },
-    setViewParams: function (options) {
-      options = options || {};
-      this.params = _.extend(this.params, options.params);
-      for (var i in this.params) {
-        if (this.params.hasOwnProperty(i)) {
+    setViewParams: function () {
+      var params = _.extend(this.params, history.state);
+      for (var i in params) {
+        if (params.hasOwnProperty(i)) {
           this.view[i] = this.params[i];
         }
       }
