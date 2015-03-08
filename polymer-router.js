@@ -83,7 +83,7 @@
     getDefaultRouteElement: function () {
       return _.find(this.getRouteElements(), function (route) {
         return !!route.default;
-      }.bind(this));
+      });
     },
     activateRoute: function (route, options) {
       this.currentRoute && this.currentRoute.detachView();
@@ -113,6 +113,7 @@
     },
     detached: function () {
       window.removeEventListener(hashstate, this.onHashChange);
+      window.removeEventListener(popstate, this.onHashChange);
     }
   });
 }());
