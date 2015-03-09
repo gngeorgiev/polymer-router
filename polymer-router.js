@@ -86,14 +86,21 @@
       });
     },
     activateRoute: function (route, options) {
-      this.currentRoute && this.currentRoute.detachView();
-      route.activate(options);
       route.metadata = _.find(this.routes, {path: route.path});
-      this.currentRoute = route;
-      this.fire('route-changed', {
+      var eventDetails = {
         route: route,
         options: options
-      });
+      };
+
+      var toChange = this.fire('route-changing', eventDetails).returnValue;
+      if (!toChange) {
+        return;
+      }
+
+      this.currentRoute && this.currentRoute.detachView();
+      route.activate(options);
+      this.currentRoute = route;
+      this.fire('route-changed', eventDetails);
     },
     attached: function () {
       this.onHashChange = this.onHashChange.bind(this);
