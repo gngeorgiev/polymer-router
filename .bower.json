@@ -1,0 +1,22 @@
+{
+  "name": "polymer-router",
+  "keywords": [
+    "seed",
+    "polymer",
+    "web-components"
+  ],
+  "main": "polymer-router.html",
+  "dependencies": {
+    "javascript-route-matcher": "git@github.com:cowboy/javascript-route-matcher.git#~0.1.0"
+  },
+  "homepage": "https://github.com/gngeorgiev/polymer-router",
+  "_release": "209287885c",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "209287885c616432674f04b78c6a2c8ea7861cc4"
+  },
+  "_source": "git@github.com:gngeorgiev/polymer-router.git",
+  "_target": "master",
+  "_originalSource": "git@github.com:gngeorgiev/polymer-router.git"
+}

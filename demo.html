@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>polymer-router Demo</title>
+    <script src="../webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="polymer-router.html">
+  </head>
+  <body unresolved>
+    <p>An `polymer-router` looks like this:</p>
+
+    <hr/>
+    <h2>Select a route:</h2>
+    <select onchange="changeRoute(this)">
+      <template id="routesTemplate" is="auto-binding" repeat="{{routes}}">
+        <option value="{{path}}">{{path}}</option>
+      </template>
+    </select>
+
+    <hr/>
+    <polymer-router></polymer-router>
+
+    <polymer-element name="home-element" noscript>
+      <template>
+        <h1>HaHa</h1>
+      </template>
+    </polymer-element>
+
+    <polymer-element name="home-element1" noscript>
+      <template>
+        <h1>HaHa - 1</h1>
+      </template>
+    </polymer-element>
+
+    <polymer-element name="home-element2" noscript>
+      <template>
+        <h1>HaHa - 2 - {{param}}</h1>
+      </template>
+    </polymer-element>
+
+    <script>
+      var router = document.querySelector('polymer-router');
+
+      router.routes = [{
+          element: 'home-element',
+          path: '#/home'
+        },{
+          element: 'home-element1',
+          path: '#/home1'
+        },{
+          element: 'home-element2',
+          path: '#/home2/:param'
+        }];
+
+      var template = document.querySelector("#routesTemplate");
+      template.routes = router.routes;
+
+      var changeRoute = function (select) {
+          location.hash = select.value;
+      };
+    </script>
+  </body>
+</html>
