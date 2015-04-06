@@ -8,6 +8,10 @@
   ],
   "main": "polymer-router.html",
   "dependencies": {
-    "javascript-route-matcher": "git@github.com:cowboy/javascript-route-matcher.git#~0.1.0"
+    "javascript-route-matcher": "git@github.com:cowboy/javascript-route-matcher.git#~0.1.0",
+    "lodash": "~3.6.0"
+  },
+  "devDependencies": {
+    "polymer": "Polymer/polymer#^0.8"
   }
 }

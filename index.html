@@ -4,10 +4,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="../webcomponentsjs/webcomponents.js"></script>
-    <link rel="import" href="../polymer/polymer.html">
-    <link rel="import" href="../core-component-page/core-component-page.html">
+    <link rel="import" href="./bower_components/polymer/polymer.html">
+    <link rel="import" href="./bower_components/webcomponentsjs/webcomponents-lite.js">
+    <link rel="import" href="polymer-router.html">
   </head>
   <body unresolved>
-    <core-component-page></core-component-page>
+    <div polymer-router>
+    </div>
+
+
+    <dom-module id="x-page1">
+      <template>
+        <h1>Page 1</h1>
+      </template>
+    </dom-module>
+
+  <script type="text/javascript">
+    Polymer.Controller({
+      is: 'x-page1',
+      $path: '/page1',
+      attached: function () {
+        console.log(this);
+      }
+    });
+  </script>
   </body>
 </html>

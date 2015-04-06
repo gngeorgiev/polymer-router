@@ -1,42 +1,46 @@
-<link rel="import" href="../polymer/polymer.html">
 <script src="./bower_components/javascript-route-matcher/dist/ba-routematcher.js"></script>
+<script src="./bower_components/lodash/lodash.min.js"></script>
 
-<!--
-Element providing solution to no problem in particular.
+<link rel="import" href="./src/polymer-router.html">
+<script src="./src/polymer-controller.js"></script>
+<script src="./src/polymer-router.js"></script>
 
-##### Example
+<!--&lt;!&ndash;-->
+<!--Element providing solution to no problem in particular.-->
 
-    <polymer-router></polymer-router>
+<!--##### Example-->
 
-@element polymer-router
-@blurb Element providing solution to no problem in particular.
-@status alpha
-@homepage http://gngeorgiev.github.io/polymer-router
--->
-<polymer-element name="polymer-router" attributes="routes defaultRouteElement currentRoute">
-  <template>
-    <template repeat="{{route in routes}}">
-      <polymer-route element-name="{{route.element}}"
-                     path="{{route.path}}"
-                     lazy="{{route.lazy}}"
-                     reloadView="{{route.reloadView}}"
-                     default="{{route.path === '*'}}"
-                     redirect="{{route.redirect}}"
-      ></polymer-route>
-    </template>
-  </template>
+    <!--<polymer-router></polymer-router>-->
 
-  <script src="polymer-router.js"></script>
-</polymer-element>
+<!--@element polymer-router-->
+<!--@blurb Element providing solution to no problem in particular.-->
+<!--@status alpha-->
+<!--@homepage http://gngeorgiev.github.io/polymer-router-->
+<!--&ndash;&gt;-->
+<!--<polymer-element name="polymer-router" attributes="routes defaultRouteElement currentRoute">-->
+  <!--<template>-->
+    <!--<template repeat="{{route in routes}}">-->
+      <!--<polymer-route element-name="{{route.element}}"-->
+                     <!--path="{{route.path}}"-->
+                     <!--lazy="{{route.lazy}}"-->
+                     <!--reloadView="{{route.reloadView}}"-->
+                     <!--default="{{route.path === '*'}}"-->
+                     <!--redirect="{{route.redirect}}"-->
+      <!--></polymer-route>-->
+    <!--</template>-->
+  <!--</template>-->
 
-<polymer-element name="polymer-route" attributes="element-name path lazy reloadView default redirect" hidden>
-  <template>
-    <style>
-      :host > *{
-        height: 100%;
-      }
-    </style>
-  </template>
+  <!--<script src="polymer-router.js"></script>-->
+<!--</polymer-element>-->
 
-  <script src="polymer-route.js"></script>
-</polymer-element>
+<!--<polymer-element name="polymer-route" attributes="element-name path lazy reloadView default redirect" hidden>-->
+  <!--<template>-->
+    <!--<style>-->
+      <!--:host > *{-->
+        <!--height: 100%;-->
+      <!--}-->
+    <!--</style>-->
+  <!--</template>-->
+
+  <!--<script src="polymer-route.js"></script>-->
+<!--</polymer-element>-->
